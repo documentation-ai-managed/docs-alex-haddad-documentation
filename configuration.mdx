@@ -1,0 +1,132 @@
+---
+title: Platform Configuration and Settings
+description: Customize Crivvi settings for your team's needs, including integration options and policy enforcement.
+---
+
+## Overview
+
+Configure Crivvi to match your team's security requirements and workflows. Access settings from the admin dashboard under `{Settings}` > `{Team}`. You control team permissions, set data retention rules, enable audit logging, and connect basic integrations like Slack or email notifications.
+
+<Callout kind="tip">
+  Enable two-factor authentication (2FA) for all admins before adjusting policies.
+</Callout>
+
+<Columns cols={2}>
+  <Card title="Team Settings" icon="users" href="#team-settings">
+    Manage members and roles.
+  </Card>
+  <Card title="Retention Policies" icon="clock" href="#retention-policies">
+    Define data expiration rules.
+  </Card>
+  <Card title="Audit Logs" icon="file-text" href="#audit-logs">
+    Track all platform actions.
+  </Card>
+  <Card title="Integrations" icon="plug" href="#integrations">
+    Connect external services.
+  </Card>
+</Columns>
+
+## Team Settings
+
+Assign roles like `{admin}`, `{editor}`, or `{viewer}` to control access to shared secrets and files.
+
+<Steps>
+  <Step title="Navigate to Team" icon="users">
+    Go to `{Settings}` > `{Team Management}`.
+  </Step>
+  <Step title="Add Member" icon="user-plus">
+    Enter email and select role.
+  </Step>
+  <Step title="Apply Changes" icon="check-circle">
+    Save to enforce permissions immediately.
+  </Step>
+</Steps>
+
+## Retention Policies
+
+Set automatic deletion for expired shares to comply with data governance.
+
+| Policy Type   | Default Retention | Max Retention | Use Case                  |
+|---------------|-------------------|---------------|---------------------------|
+| Passwords     | 7 days            | 90 days       | Temporary credentials     |
+| Files         | 30 days           | 365 days      | Secure document exchange  |
+| Secrets       | 1 day             | 30 days       | API keys and tokens       |
+
+<Tabs>
+  <Tab title="Passwords" icon="key">
+    Configure `{max_age}` in days:
+    
+    ```javascript
+    const policy = {
+      type: "password",
+      retention_days: 7,
+      auto_delete: true
+    };
+    ```
+  </Tab>
+  <Tab title="Files" icon="file">
+    Set file-specific rules:
+    
+    ```javascript
+    const policy = {
+      type: "file",
+      retention_days: 30,
+      size_limit_mb: 100
+    };
+    ```
+  </Tab>
+</Tabs>
+
+<Expandable title="Advanced Policy Enforcement" default-open="false">
+  Use custom scripts for complex rules:
+  
+  ```javascript
+  // Enforce retention via webhook
+  fetch('/api/policy/apply', {
+    method: 'POST',
+    body: JSON.stringify({ team_id: 'team_123', rules: policy })
+  });
+  ```
+</Expandable>
+
+## Audit Logs
+
+Monitor all actions including shares created, accessed, and deleted. Logs retain for 90 days by default.
+
+<Callout kind="alert">
+  Export logs monthly to maintain compliance with regulations like GDPR.
+</Callout>
+
+Enable via dashboard toggle, then query via API:
+
+<CodeGroup tabs="JavaScript,cURL">
+  ```javascript
+  const logs = await fetch('/api/audit/team_123?from=2024-01-01');
+  const data = await logs.json();
+  console.log(data.events);
+  ```
+  ```bash
+  curl -H "Authorization: Bearer {TOKEN}" \
+    "https://api.crivvi.com/audit/team_123?from=2024-01-01"
+  ```
+</CodeGroup>
+
+## Basic Integrations
+
+Connect Slack for notifications or Zapier for automations.
+
+### Slack Setup
+
+<Steps>
+  <Step title="Create App" icon="slack">
+    Visit Slack API dashboard and generate bot token.
+  </Step>
+  <Step title="Paste Token" icon="copy">
+    Enter `{SLACK_BOT_TOKEN}` in Crivvi `{Integrations}` > `{Slack}`.
+  </Step>
+  <Step title="Test Channel" icon="message-circle">
+    Send test notification to `{#test-channel}`.
+  </Step>
+</Steps>
+
+Your configuration ensures secure, compliant sharing tailored to your operations. Review settings quarterly for updates.

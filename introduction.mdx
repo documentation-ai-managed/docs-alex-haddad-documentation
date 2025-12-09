@@ -1,0 +1,105 @@
+---
+title: Welcome to Crivvi
+description: An overview of Crivvi, a secure platform for sharing sensitive information with zero-knowledge encryption, and how it helps teams manage credentials safely.
+---
+
+## Overview
+
+Crivvi provides a secure platform for teams to share sensitive information like passwords, files, and secrets. It uses zero-knowledge encryption, ensuring that only the intended recipients can access the data. You can manage credentials reliably without exposing them to third parties.
+
+Crivvi simplifies secure collaboration by offering end-to-end encryption, time-limited shares, and audit logs. Teams in DevOps, IT security, and project management rely on it daily.
+
+<Columns cols={3}>
+  <Card title="Zero-Knowledge Encryption" icon="shield" href="/docs/security">
+    Your data remains private. Crivvi never sees your secrets.
+  </Card>
+  <Card title="Time-Limited Shares" icon="clock" href="/docs/sharing">
+    Automatically expire links after use to minimize exposure.
+  </Card>
+  <Card title="Audit Logs" icon="file-text" href="/docs/logs">
+    Track access and downloads for compliance.
+  </Card>
+</Columns>
+
+## Key Benefits
+
+Crivvi stands out with its focus on security and ease of use.
+
+<Callout kind="tip">
+  Start with a free account to test sharing a password or file securely.
+</Callout>
+
+You gain:
+- **Compliance-ready**: Meets SOC 2 and GDPR standards.
+- **Cross-platform**: Works on web, desktop, and mobile.
+- **Integrations**: Connects with tools like Slack and GitHub.
+
+```mermaid
+graph LR
+    A[You] --> B[Crivvi Platform]
+    B --> C[Recipient]
+    A -.->|Encrypted Only| C
+```
+
+## Use Cases
+
+Explore how teams use Crivvi across scenarios.
+
+<Tabs>
+  <Tab title="DevOps Teams" icon="code">
+    Share temporary AWS credentials or Docker secrets during deployments.
+
+    <CodeGroup tabs="JavaScript,Bash">
+      ```javascript
+      const crivvi = require('crivvi-sdk');
+      const share = await crivvi.shareSecret({
+        secret: 'AKIAIOSFODNN7EXAMPLE',
+        expiresIn: '1h'
+      });
+      console.log(share.link);
+      ```
+      ```bash
+      crivvi share --secret "AKIAIOSFODNN7EXAMPLE" --expires 1h
+      ```
+    </CodeGroup>
+  </Tab>
+  <Tab title="IT Support" icon="settings">
+    Distribute VPN configs or SSH keys to new hires securely.
+  </Tab>
+  <Tab title="Project Managers" icon="users">
+    Exchange client login details without email risks.
+  </Tab>
+</Tabs>
+
+## Getting Started
+
+Set up Crivvi in minutes.
+
+<Steps>
+  <Step title="Create Account" icon="user-plus">
+    Sign up at crivvi.com with your email.
+  </Step>
+  <Step title="Verify Email" icon="mail">
+    Check your inbox and confirm.
+  </Step>
+  <Step title="Share First Secret" icon="share-2">
+    Upload a password or file and generate a secure link.
+  </Step>
+</Steps>
+
+## Getting Support
+
+For help, use these resources.
+
+<ExpandableGroup>
+  <Expandable title="Documentation" default-open="true">
+    Browse guides on sharing, encryption, and APIs.
+  </Expandable>
+  <Expandable title="Contact Us">
+    Email support@crivvi.com or join our Discord community.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="info">
+  Questions? Our team responds within 24 hours.
+</Callout>

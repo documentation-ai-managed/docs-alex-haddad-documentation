@@ -1,0 +1,134 @@
+---
+title: Changelog
+description: Track updates and improvements to Crivvi, with details on new features, bug fixes, and version releases.
+---
+
+## Recent Updates
+
+Crivvi evolves rapidly to enhance secure sharing of sensitive data like passwords and files. Review the latest releases below to see new zero-knowledge encryption features, performance boosts, and fixes. Upgrade promptly to benefit from security improvements.
+
+<Callout kind="info">
+  Enable auto-updates in your dashboard settings to receive notifications for new versions.
+</Callout>
+
+<Columns cols={3}>
+  <Card title="v1.2.0" icon="zap" href="#v120">
+    Enhanced file sharing and team permissions.
+  </Card>
+  <Card title="v1.1.0" icon="shield" href="#v110">
+    Improved encryption and audit logs.
+  </Card>
+  <Card title="v1.0.0" icon="rocket" href="#v100">
+    Initial stable release with core sharing.
+  </Card>
+</Columns>
+
+## Release History
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added secure file uploads up to 500MB with client-side encryption.
+- Introduced team-based access controls for shared secrets.
+
+## Improvements
+
+- Reduced share expiration setup time by 40%.
+- Enhanced UI for password generator with strength indicators.
+
+## Bug Fixes
+
+- Fixed token refresh issues during long sessions.
+- Resolved cross-browser compatibility for drag-and-drop files.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Audit logs for all share accesses, viewable in dashboard.
+- Integration with SSO providers like Okta and Auth0.
+
+## Bug Fixes
+
+- Patched potential XSS in share preview links.
+- Corrected decryption errors on mobile devices.
+
+## Improvements
+
+- Optimized database queries for faster secret retrieval.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## New Features
+
+- Core zero-knowledge sharing for passwords, files, and API keys.
+- Time-limited shares with custom expiration.
+
+## Breaking Changes
+
+- Updated API authentication to use `{CRIVVI_TOKEN}` header instead of query params.
+
+## Bug Fixes
+
+- Initial stability improvements for high-traffic teams.
+
+</Update>
+
+## Upgrading to Latest Version
+
+Follow these steps to upgrade Crivvi safely and apply any breaking changes.
+
+<Steps>
+  <Step title="Backup Data" icon="database">
+    Export all shares from your dashboard.
+  </Step>
+  <Step title="Update SDK" icon="download">
+    Install the latest SDK version.
+    
+    <CodeGroup tabs="npm,yarn">
+    ````bash
+    npm install @crivvi/sdk@latest
+    ````
+    ````bash
+    yarn add @crivvi/sdk@latest
+    ````
+    </CodeGroup>
+  </Step>
+  <Step title="Migrate Auth" icon="settings">
+    Update your integration code for new token format.
+    
+    <Tabs>
+      <Tab title="JavaScript" icon="code">
+        ```javascript
+        const client = new CrivviClient({ token: '{CRIVVI_TOKEN}' });
+        const share = await client.createShare({ secret: 'my-password' });
+        ```
+      </Tab>
+      <Tab title="Python" icon="python">
+        ```python
+        from crivvi import Client
+        client = Client(token='{CRIVVI_TOKEN}')
+        share = client.create_share(secret='my-password')
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Test Shares" icon="check-circle">
+    Create test shares and verify decryption.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  For breaking changes like auth updates, review the migration guide in your account settings.
+</Callout>
+
+<Expandable title="Detailed Migration Notes" default-open="false">
+
+If you encounter issues with `{CRIVVI_TOKEN}`, regenerate it from the API keys section. Legacy query params are deprecated and will stop working after 2024-11-01.
+
+</Expandable>
